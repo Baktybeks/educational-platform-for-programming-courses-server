@@ -19,6 +19,50 @@ const Course = sequelize.define('course', {
     people: {type: DataTypes.INTEGER, allowNull: false},
 })
 
+const Tests = sequelize.define('test', {
+    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+    title: {type: DataTypes.STRING, allowNull: false},
+})
+
+const Questions = sequelize.define('questions', {
+    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+    content: {type: DataTypes.STRING, allowNull: false},
+})
+
+const Answers = sequelize.define('answers', {
+    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+    content: {type: DataTypes.STRING, allowNull: false},
+})
+
+const Comments = sequelize.define('comments', {
+    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+    content: {type: DataTypes.STRING, allowNull: false},
+})
+
+User.hasMany(Course)
+Course.belongsTo(User)
+
+Course.hasMany(Tests)
+Tests.belongsTo(Course)
+
+User.hasMany(Questions)
+Questions.belongsTo(User)
+
+Course.hasMany(Questions)
+Questions.belongsTo(Course)
+
+Questions.hasMany(Answers)
+Answers.belongsTo(Questions)
+
+User.hasMany(Answers)
+Answers.belongsTo(User)
+
+User.hasMany(Comments)
+Comments.belongsTo(User)
+
+Course.hasMany(Comments)
+Comments.belongsTo(Course)
+
 module.exports = {
     User,
     Course,
