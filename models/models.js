@@ -64,8 +64,7 @@ Course.hasMany(Comments)
 Comments.belongsTo(Course)
 
 module.exports = {
-    User,
-    Course,
+    User, Course, Tests, Questions, Answers, Comments
 }
 
 
