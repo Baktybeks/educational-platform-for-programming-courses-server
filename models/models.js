@@ -16,55 +16,47 @@ const Course = sequelize.define('course', {
     description: {type: DataTypes.TEXT, allowNull: false},
     description2: {type: DataTypes.TEXT, allowNull: false},
     time: {type: DataTypes.INTEGER, allowNull: false},
-    people: {type: DataTypes.INTEGER, allowNull: false},
+    people: {type: DataTypes.STRING, allowNull: false},
 })
+
+const Review = sequelize.define('review', {
+    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+    name: {type: DataTypes.STRING, allowNull: false},
+    description: {type: DataTypes.TEXT, allowNull: false},
+})
+
+const QuestionsAndAnswers = sequelize.define('questions_and_answers', {
+    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+    title: {type: DataTypes.STRING, allowNull: false},
+    description: {type: DataTypes.TEXT, allowNull: false},
+})
+
+const Pay = sequelize.define('Pay', {
+    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+    phone: {type: DataTypes.STRING, allowNull: false},
+    personal_account: {type: DataTypes.INTEGER, allowNull: false},
+    price: {type: DataTypes.INTEGER, allowNull: false}
+})
+
+User.hasMany(Pay)
+Pay.belongsTo(User)
+Course.hasMany(Pay)
+Pay.belongsTo(Course)
+
 
 const Tests = sequelize.define('test', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     title: {type: DataTypes.STRING, allowNull: false},
 })
 
-const Questions = sequelize.define('questions', {
-    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-    content: {type: DataTypes.STRING, allowNull: false},
-})
-
-const Answers = sequelize.define('answers', {
-    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-    content: {type: DataTypes.STRING, allowNull: false},
-})
-
-const Comments = sequelize.define('comments', {
-    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-    content: {type: DataTypes.STRING, allowNull: false},
-})
 
 User.hasMany(Course)
 Course.belongsTo(User)
-
 Course.hasMany(Tests)
 Tests.belongsTo(Course)
 
-User.hasMany(Questions)
-Questions.belongsTo(User)
-
-Course.hasMany(Questions)
-Questions.belongsTo(Course)
-
-Questions.hasMany(Answers)
-Answers.belongsTo(Questions)
-
-User.hasMany(Answers)
-Answers.belongsTo(User)
-
-User.hasMany(Comments)
-Comments.belongsTo(User)
-
-Course.hasMany(Comments)
-Comments.belongsTo(Course)
-
 module.exports = {
-    User, Course, Tests, Questions, Answers, Comments
+    User, Course, Tests, Review, QuestionsAndAnswers, Pay
 }
 
 

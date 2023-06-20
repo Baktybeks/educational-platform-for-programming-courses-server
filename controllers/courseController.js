@@ -18,7 +18,7 @@ class CourseController {
         }
     }
     async getAll(req, res) {
-        const courses = await Course.findAll()
+        const courses = await Course.findAndCountAll()
         return res.json(courses)
     }
 
